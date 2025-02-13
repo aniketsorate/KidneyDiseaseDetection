@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kidney Disease Detection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 600px; margin-top: 50px; }
+        .result-box { font-size: 20px; font-weight: bold; padding: 15px; border-radius: 5px; }
+        .normal { background-color: #d4edda; color: #155724; }
+        .abnormal { background-color: #f8d7da; color: #721c24; }
+        .image-preview { max-width: 100%; border-radius: 10px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container text-center">
+    <h1 class="mb-4">🩺 Kidney Disease Detection</h1>
+    <p class="lead">Upload an image to detect abnormalities in the kidney.</p>
+
+    <form action="/predict" method="post" enctype="multipart/form-data" class="mb-3">
+        <input type="file" name="file" class="form-control mb-3" required>
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    {% if result %}
+        <div class="result-box {% if result.diagnosis.lower() == 'normal' %}normal{% else %}abnormal{% endif %}">
+            <p>{{ result.message }}</p>
+        </div>
+
+        {% if result.warning %}
+            <div class="alert alert-warning mt-3">{{ result.warning }}</div>
+        {% endif %}
+
+        {% if image_path %}
+            <h3 class="mt-4">Uploaded Image:</h3>
+            <img src="{{ image_path }}" alt="Uploaded Image" class="image-preview">
+        {% endif %}
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
