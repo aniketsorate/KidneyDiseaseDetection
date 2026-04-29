@@ -78,6 +78,10 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# Training outputs
+training/TB/
+training/*.ckpt.weights.h5
+
 # IPython
 profile_default/
 ipython_config.py
@@ -135,6 +139,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+KedneyEnv/
 
 # Spyder project settings
 .spyderproject
